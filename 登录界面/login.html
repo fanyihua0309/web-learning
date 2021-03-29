@@ -1,132 +1,161 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=divice-width, initial-scale=1.0">
-        <title>登录界面</title>
-        <script type="text/javascript" src="tab.js" defer></script>
-        <style type="text/css">
-            .image{
-                width: 55%;
-                height: 55%;
-                display: inline;
-                float: left;
-            }
-            .words{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-content: center;
-                align-items: center;
-                font-family: 微软雅黑;
-            }
-            #account-phone{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                border: none;
-                margin-bottom: 50px;
-            }
-            .login{
-                width: 150px;
-                height: 30px;
-                border: 1px solid rgb(43, 151, 201);
-                background-color: rgb(43, 151, 201);
-                text-align: center;
-                color: white;
-                margin-top: 30px;
-                margin-bottom: 24px;
-            }
-            .SSO{
-                width: 150px;
-                height: 30px;
-                border: 1px solid rgb(88, 91, 94);
-                background-color: rgb(88, 91, 94);
-                text-align: center;
-                color: white;
-                margin-top: 24px;
-            }
-            .copyright{
-                position: fixed;
-                bottom: 20px;
-                left: 67%;
-                font-size: 10px;
-                text-align: center;
-            }
-            #other{
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-            }
-            .line{
-                border: 0.4px solid rgb(231, 228, 228);
-                width: 80px;
-                height: 0;
-            }
-            .box{
-                border:none; 
-                height: 28px;
-                border-bottom:1px solid #eee;
-                line-height: 25px;
-            }
-            .input{
-                border:none; 
-                border-bottom:1px solid #eee;
-                line-height: 30px;
-                width: 240px;
-            }
-            .title{
-                text-align: center;
-                color:rgb(87, 85, 85);
-                margin-top: 50px;
-                font-size: 28px;
-                color:rgb(88, 91, 94);
-            }
-            .verify-button{
-                background-color: orange;
-                border: none;
-                color: white;
-                padding: 4px 8px;
-                display: inline-block;
-                border-radius: 999em;
-                font-size: 10px;
-            }
-            .other-login-words{
-                font-size: 10.5px;
-                color: gray;
-            }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=divice-width, initial-scale=1.0" />
+    <title>登录界面</title>
+    <script type="text/javascript" src="tab.js" defer></script>
+    <style type="text/css">
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
 
-            #tab {
-                width:270px;
-                padding:5px;
-                height:150px;
-                margin:10px;
-            }
-            #tab ul {
-                /* list-style:none; */
-                /* display:; */
-                height: 35px;
-                /* line-height:30px; */
-                /* border-bottom:1px rgb(214, 209, 209) solid; */
-            }
-            #tab ul li {
-                background:#FFF;
-                cursor:pointer;
-                float:left;
-                list-style:none;
-                height:29px;
-                line-height:29px;
-                padding:0px 10px;
-                /* margin:0px 10px; */
-                /* border:1px solid #BBB; */
-                /* border-bottom:2px solid rgb(79, 173, 216); */
-            }
-            #tab ul li.on {
-                border-bottom:2px solid rgb(40, 171, 204);
-                color: rgb(40, 171, 204);
-            }
-            /* #tab div {
+        display: flex;
+      }
+      .left-part {
+        width: 60%;
+        height: 100%;
+        background: url("picture.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      .right-part {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        font-family: 微软雅黑;
+      }
+      .input {
+        border: none;
+        border-bottom: 1px solid #eee;
+        height: 30px;
+        line-height: 30px;
+      }
+      .phone-input-line {
+        display: flex;
+
+        margin-bottom: 12px;
+      }
+      .phone-prefix {
+        width: 30%;
+        /* margin-top: 3px; */
+      }
+      .phone-input {
+        width: 70%;
+      }
+      .verify-input {
+        width: 70%;
+      }
+      .verify-btn {
+        width: 30%;
+
+        background-color: orange;
+        border: none;
+        color: white;
+        padding: 4px 8px;
+        display: inline-block;
+        border-radius: 999em;
+
+        font-size: 10px;
+      }
+
+      .btn {
+        width: 150px;
+        height: 30px;
+        text-align: center;
+        color: white;
+        margin-top: 30px;
+        margin-bottom: 24px;
+      }
+
+      .login-btn {
+        border: 1px solid rgb(43, 151, 201);
+        background-color: rgb(43, 151, 201);
+      }
+      .SSO-btn {
+        border: 1px solid rgb(88, 91, 94);
+        background-color: rgb(88, 91, 94);
+      }
+      .copyright {
+        position: fixed;
+        bottom: 20px;
+        left: 67%;
+        font-size: 10px;
+        text-align: center;
+      }
+      #other {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      .line {
+        border: 0.4px solid rgb(231, 228, 228);
+        width: 80px;
+        height: 0;
+      }
+      /* .input {
+        border: none;
+        border-bottom: 1px solid #eee;
+        line-height: 30px;
+        width: 240px;
+      } */
+      .title {
+        text-align: center;
+        color: rgb(87, 85, 85);
+        margin-top: 50px;
+        font-size: 28px;
+        color: rgb(88, 91, 94);
+      }
+      .verify-button {
+        background-color: orange;
+        border: none;
+        color: white;
+        padding: 4px 8px;
+        display: inline-block;
+        border-radius: 999em;
+        font-size: 10px;
+      }
+      .other-login-words {
+        font-size: 10.5px;
+        color: gray;
+      }
+
+      #tab {
+        width: 270px;
+        padding: 5px;
+        height: 150px;
+        margin: 10px;
+      }
+      #tab ul {
+        /* list-style:none; */
+        /* display:; */
+        height: 35px;
+        /* line-height:30px; */
+        /* border-bottom:1px rgb(214, 209, 209) solid; */
+      }
+      #tab ul li {
+        background: #fff;
+        cursor: pointer;
+        float: left;
+        list-style: none;
+        height: 29px;
+        line-height: 29px;
+        padding: 0px 10px;
+        /* margin:0px 10px; */
+        /* border:1px solid #BBB; */
+        /* border-bottom:2px solid rgb(79, 173, 216); */
+      }
+      #tab ul li.on {
+        border-bottom: 2px solid rgb(40, 171, 204);
+        color: rgb(40, 171, 204);
+      }
+      /* #tab div {
                 height:100px;
                 width:250px; 
                 line-height:24px; 
@@ -135,60 +164,69 @@
                 border:1px solid #336699; 
                 padding:10px; 
             } */
-            .hide {
-                display:none;
-            }   
-        </style>
-    </head>
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
 
-    <body>
-        <img class="image" alt="" src="picture.png" width="60%" height="40%">
-        <div class="words">
-            <div>
-                <p class="title">登陆模板</p>
-            </div>
+  <body>
+    <!-- <img class="image" alt="" src="picture.png" /> -->
+    <div class="left-part"></div>
+    <div class="right-part">
+      <div>
+        <p class="title">登陆模板</p>
+      </div>
 
-            <div id="tab">
-                <ul>
-                <li class="off">账号登录</li>
-                <li class="on">手机登录</li>
-                </ul>
-            <div id="firstPage" class="hide">
-                <input class="input" type="text" placeholder="输入账号">
-                <input class="input" type="text" placeholder="输入密码">
-            </div>
-            <div id="secondPage" class="show">   
-                <div>
-                    <div>
-                        <select class="box">
-                            <option value="中国大陆" selected>+86</option>
-                            <option value="中国香港">+852</option>
-                            <option value="中国澳门">+853</option>
-                        </select>
-                        <input class="input" type="text" placeholder="输入手机号">
-                    </div>
-                    <div>
-                        <input class="input" type="text" placeholder="输入手机验证码">
-                        <button class="verify-button">发送验证码</button>
-                    </div>
-                </div>
-            </div>
+      <div id="tab">
+        <ul>
+          <li class="off">账号登录</li>
+          <li class="on">手机登录</li>
+        </ul>
+        <div id="firstPage" class="hide">
+          <input class="input" type="text" placeholder="输入账号" />
+          <input class="input" type="text" placeholder="输入密码" />
         </div>
-            
-            <div>
-                <button class="login" type="submit">登 录</button>
+        <div id="secondPage" class="show">
+          <div>
+            <div class="phone-input-line">
+              <select class="input phone-prefix">
+                <option value="中国大陆" selected>+86</option>
+                <option value="中国香港">+852</option>
+                <option value="中国澳门">+853</option>
+              </select>
+              <input
+                class="input phone-input"
+                type="text"
+                placeholder="输入手机号"
+              />
             </div>
-            <div id="other">
-                <div class="line"></div>
-                <div class="other-login-words">其他登录方式</div>
-                <div class="line"></div>
+            <div class="phone-input-line">
+              <input
+                class="input verify-input"
+                type="text"
+                placeholder="输入手机验证码"
+              />
+              <button class="verify-btn">发送验证码</button>
             </div>
-            <div>
-                <button class="SSO">SSO一键登录</button>
-            </div>
+          </div>
         </div>
-        <div class="copyright">
-            <p>Copyright © 2015-2019 Baishancloud. All rights reserved.</p>
-        </div>
-    </body>
+      </div>
+
+      <div>
+        <button class="btn login-btn" type="submit">登 录</button>
+      </div>
+      <div id="other">
+        <div class="line"></div>
+        <div class="other-login-words">其他登录方式</div>
+        <div class="line"></div>
+      </div>
+      <div>
+        <button class="btn SSO-btn">SSO一键登录</button>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>Copyright © 2015-2019 Baishancloud. All rights reserved.</p>
+    </div>
+  </body>
 </html>
