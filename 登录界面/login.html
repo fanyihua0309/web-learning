@@ -67,7 +67,7 @@
                 width: 25%;
                 border-right: 1px solid #eee;
             }
-            .input-phone-number{
+            #input-phone-number{
                 width: 75%;
             }
             .input-verification-code{
@@ -137,7 +137,40 @@
                 font-size: 10px;
                 text-align: center;
             }
+
+
+            #tip-phone-number{
+                display: none;
+            }
         </style>
+
+        <script  type="text/javascript">
+            function checkPhoneNumber(phone){
+                let phone = getElementById('input-phone-number').value;
+                let tip = '';
+                if(phone == '' || phone == defined)
+                    tip = '手机号码不能为空!';
+                else if(phone.length !== 11)
+                    tip = '手机位数不正确!';
+                else{
+                    let legalExpression = /^1[3|4|5|7|8][0-9]\d{8}$/;
+                    if(legalExpression.test(phone) == false)
+                        tip = '手机号码无效!';
+                }
+                return getElementById('tip-phone-number').innerHTML = tip;
+            }
+
+            // function checkMobile(){ 
+            //     var _phone = $("#input-phone-number").val();
+            //     if(!(/^1[3|4|5|8][0-9]\d{8}$/.test(_phone))){ 
+            //         alert("不是完整的11位手机号或者正确的手机号"); 
+            //         return false; 
+            //     } 
+            // } 
+
+
+        </script>
+
     </head>
 
     <body>
@@ -155,8 +188,12 @@
 
                 <!-- 账号登陆部分 -->
                 <div class="hide">
-                    <input class="input-field-container input-field" type="text" placeholder="输入账号">
-                    <input class="input-field-container input-field" type="text" placeholder="输入密码">
+                    <div class="input-field-container">
+                        <input class="input-field" type="text" placeholder="输入账号">
+                    </div>
+                    <div class="input-field-container">
+                        <input class="input-field-container input-field" type="text" placeholder="输入密码">
+                    </div>
                 </div>
 
                 <!-- 手机登录部分 -->
@@ -167,7 +204,9 @@
                             <option value="中国香港">+852</option>
                             <option value="中国澳门">+853</option>
                         </select>
-                        <input class="input-field input-phone-number" type="text" placeholder="输入手机号">
+                        <input class="input-field" id="input-phone-number" type="text" placeholder="输入手机号" maxlength=11 onblur="checkPhoneNumber()" />
+                        <!-- 用于显示验证手机号的相关提示信息 -->
+                        <span id="tip-phone-number"></span> 
                     </div>
                     <div class="input-field-container">
                         <input class="input-field input-verification-code" type="text" placeholder="输入手机验证码">
@@ -175,7 +214,7 @@
                     </div>
                 </div>
             </div>
-            
+       
             <div>
                 <button class="button login-button" type="submit">登 录</button>
             </div>
