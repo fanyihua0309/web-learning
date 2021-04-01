@@ -4,6 +4,7 @@
     <title>简易计算器</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=divice-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <style>
       body{
         height: 100vh;
@@ -55,27 +56,27 @@
   </head>
 
   <body>
-    <div>
+    <form>
       <div class="general-style">
-        <label>操作数1:</label><input type="number" class="input-box" id="number1"/>
+        <label>操作数1:</label><input type="number" class="input-box" id="number1" required="required"/>
       </div>
       <div class="general-style">
-        <label>操作数2:</label><input type="number" class="input-box" id="number2"/>
+        <label>操作数2:</label><input type="number" class="input-box" id="number2" required="required"/>
       </div>
       <div class="general-style">
         <label>运算类型:</label>
-        <input type="radio" name="arithmetic-type" value="+">+
-        <input type="radio" name="arithmetic-type" value="-">-
-        <input type="radio" name="arithmetic-type" value="*">*
-        <input type="radio" name="arithmetic-type" value="/">/
+        <input type="radio" name="arithmetic-type" value="+" required="required">+
+        <input type="radio" name="arithmetic-type" value="-" required="required">-
+        <input type="radio" name="arithmetic-type" value="*" required="required">*
+        <input type="radio" name="arithmetic-type" value="/" required="required">/
       </div>
       <div class="count-result-part">
         <div class="general-style">
-          <button type="text" class="button" onclick="getCountResult();">计算结果</button>
+          <button type="submit" class="button" onclick="getCountResult();">计算结果</button>
         </div>
         <div id="countResult" class="input-box"></div>
       </div>
-    </div>
+    </form>
 
     <script>
       function getCountResult(){
