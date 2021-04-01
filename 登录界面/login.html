@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=divice-width, initial-scale=1.0">
         <title>登录界面</title>
-        <script type="text/javascript" src="tab.js" defer></script>
         <style type="text/css">
             html{
                 height: 100%;
@@ -52,18 +51,22 @@
                 background-color: rgb(88, 91, 94);
             }
 
-            .input-field-container{     /* 输入框通用布局 */  
+            .input-field-container{     
                 display: flex;
-                width: 240px;
-                height: 40px;
-                line-height: 40px;
-                align-items: flex-end;
+                width: 230px;
+                height: 30px;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
             }
             .input-field{       /* 输入框通用样式 */  
                 border:none; 
                 border-bottom:1px solid #eee;
+                height: 21px;
+                width: 220px;
+                line-height: 50px;
             }
-            .phone-prefix{
+            #phone-prefix{
                 width: 25%;
                 border-right: 1px solid #eee;
             }
@@ -76,25 +79,30 @@
             .send-verification-code-button{
                 width: 28%;
                 height: 25px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
                 background-color: orange;
                 color: white;
                 padding: 4px 8px;
                 border-radius: 999em;
+                border: 1px solid orange;
                 font-size: 9px;
             }
 
             #tab {
-                width:240px;
+                width:280px;
                 padding:5px;
                 height:120px;
                 margin-bottom:50px;
             }
-            #middle-line{   /* 账号登录和手机登录中间的竖线 */
+            /* 账号登录和手机登录中间的竖线 */
+            #middle-line{   
                 border-left: 1px solid #eee;
             }
             #tab ul{
                 height: 35px;
-                line-height: 35px;
+                line-height: 27px;
                 font-size: 15px;
             }
             #tab ul li {
@@ -102,15 +110,15 @@
                 cursor:pointer;
                 float:left;
                 list-style:none;
-                height:35px;
-                line-height:35px;
+                /* height:35px; */
+                /* line-height:35px; */
                 padding:0px 10px;
             }
             #tab ul li.on {
                 border-bottom:2px solid rgb(40, 171, 204);
                 color: rgb(40, 171, 204);
             }
-            .hide {
+            #hide {
                 display:none;
             }   
 
@@ -138,38 +146,12 @@
                 text-align: center;
             }
 
-
             #tip-phone-number{
-                display: none;
+                color: red;
+                font-size: 8px;
             }
+
         </style>
-
-        <script  type="text/javascript">
-            function checkPhoneNumber(phone){
-                let phone = getElementById('input-phone-number').value;
-                let tip = '';
-                if(phone == '' || phone == defined)
-                    tip = '手机号码不能为空!';
-                else if(phone.length !== 11)
-                    tip = '手机位数不正确!';
-                else{
-                    let legalExpression = /^1[3|4|5|7|8][0-9]\d{8}$/;
-                    if(legalExpression.test(phone) == false)
-                        tip = '手机号码无效!';
-                }
-                return getElementById('tip-phone-number').innerHTML = tip;
-            }
-
-            // function checkMobile(){ 
-            //     var _phone = $("#input-phone-number").val();
-            //     if(!(/^1[3|4|5|8][0-9]\d{8}$/.test(_phone))){ 
-            //         alert("不是完整的11位手机号或者正确的手机号"); 
-            //         return false; 
-            //     } 
-            // } 
-
-
-        </script>
 
     </head>
 
@@ -182,35 +164,35 @@
 
             <div id="tab">
                 <ul class="tab-title-bar">
-                    <li class="off">账号登录</li>
-                    <li class="on" id="middle-line">手机登录</li>
+                    <li class="off" onclick="changeTab();">账号登录</li>
+                    <li class="on" id="middle-line" onclick="changeTab();">手机登录</li>
                 </ul>
 
                 <!-- 账号登陆部分 -->
-                <div class="hide">
+                <div class="tab-page" id="hide">
                     <div class="input-field-container">
                         <input class="input-field" type="text" placeholder="输入账号">
                     </div>
                     <div class="input-field-container">
-                        <input class="input-field-container input-field" type="text" placeholder="输入密码">
+                        <input class="input-field" type="text" placeholder="输入密码">
                     </div>
                 </div>
 
                 <!-- 手机登录部分 -->
-                <div class="show">   
+                <div class="tab-page" id="show">   
                     <div class="input-field-container">
-                        <select class="input-field phone-prefix">
+                        <select class="input-field" id="phone-prefix">
                             <option value="中国大陆" selected>+86</option>
                             <option value="中国香港">+852</option>
                             <option value="中国澳门">+853</option>
                         </select>
-                        <input class="input-field" id="input-phone-number" type="text" placeholder="输入手机号" maxlength=11 onblur="checkPhoneNumber()" />
+                        <input class="input-field" id="input-phone-number" type="text" placeholder="输入手机号" maxlength="11" onblur="checkPhoneNumber();" />
                         <!-- 用于显示验证手机号的相关提示信息 -->
-                        <span id="tip-phone-number"></span> 
+                        <div id="tip-phone-number"></div> 
                     </div>
                     <div class="input-field-container">
                         <input class="input-field input-verification-code" type="text" placeholder="输入手机验证码">
-                        <button class="input-field send-verification-code-button">发送验证码</button>
+                        <button class="send-verification-code-button">发送验证码</button>
                     </div>
                 </div>
             </div>
@@ -231,5 +213,46 @@
                 <p>Copyright © 2015-2019 Baishancloud. All rights reserved.</p>
             </div>
         </div>
+
+        <script  type="text/javascript">
+            function checkPhoneNumber(){
+                let phone = document.getElementById('input-phone-number').value;
+                console.log(phone);
+                let tip = '';
+                if(phone == '' || phone == undefined || phone == null)
+                    tip = '手机号码不能为空!';
+                else{
+                    let legalExpression = /^1[3|4|5|7|8][0-9]\d{8}$/;
+                    if(legalExpression.test(phone) == false){
+                        tip = '手机号码无效!';
+                        document.getElementById('input-phone-number').value = "";   //将输入框中的字符清空
+                        document.getElementById('input-phone-number').focus();      //光标定位到手机号输入框
+                    }
+                }
+                return (document.getElementById('tip-phone-number').innerHTML = tip);
+            }
+
+            function changeTab(){
+                let myLi = document.getElementsByTagName("li");
+                for(let i = 0; i < myLi.length; i++){
+                    if(myLi[i].className == "off"){
+                        myLi[i].className = "on";
+                    }
+                    else{
+                        myLi[i].className = "off";
+                    }
+                }
+                let page = document.getElementsByClassName("tab-page");
+                for(let j = 0; j < page.length; j++)
+                {
+                    if(page[j].id == "hide"){
+                        page[j].id = "show";
+                    }
+                    else{
+                        page[j].id = "hide";
+                    }
+                }
+            }
+        </script>
     </body>
 </html>

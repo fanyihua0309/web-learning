@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>简单的计算器</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 24px;
+      }
+      input {
+        font-size: 20px;
+      }
+      .form-line {
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+
+  <!--这个文件有静态页面+计算的逻辑-->
+  <body>
+    <form onsubmit="return handleCalc();" action=" " id="myForm">
+      <div class="form-line">
+        <label>
+          参数1:<input
+            name="firstNumber"
+            id="firstNumber"
+            type="number"
+            required="required"
+          />
+        </label>
+      </div>
+
+      <div class="form-line">
+        <label>
+          参数2:<input
+            name="secondNumber"
+            id="secondNumber"
+            type="number"
+            required="required"
+          />
+        </label>
+      </div>
+
+      <div class="form-line">
+        <label>
+          运算符:
+          <label
+            ><input
+              name="calc-operator"
+              type="radio"
+              value="+"
+              required="required"
+            />+</label
+          >
+          <label
+            ><input
+              name="calc-operator"
+              type="radio"
+              value="-"
+              required="required"
+            />-</label
+          >
+          <label
+            ><input
+              name="calc-operator"
+              type="radio"
+              value="*"
+              required="required"
+            />*</label
+          >
+          <label
+            ><input
+              name="calc-operator"
+              type="radio"
+              value="/"
+              required="required"
+            />/</label
+          >
+        </label>
+      </div>
+
+      <div class="form-line"><button type="submit">开始计算</button></div>
+
+      <div class="form-line">
+        <label
+          >运算结果：
+          <span id="calc-result"></span>
+        </label>
+      </div>
+    </form>
+
+    <script>
+      function handleCalc() {
+        const form = document.getElementById("myForm");
+
+        const formData = new FormData(form);
+        const firstNumber = formData.get("firstNumber");
+        const secondNumber = formData.get("secondNumber");
+        const operator = formData.get("calc-operator");
+
+        let result = 0;
+        switch (operator) {
+          case "+":
+            result = Number(firstNumber) + Number(secondNumber);
+            break;
+          case "-":
+            result = Number(firstNumber) - Number(secondNumber);
+            break;
+          case "*":
+            result = Number(firstNumber) * Number(secondNumber);
+            break;
+          case "/":
+            result = Number(firstNumber) / Number(secondNumber);
+            break;
+          default:
+            console.error("当前没有合法的运算符");
+            break;
+        }
+
+        document.getElementById("calc-result").innerHTML = result;
+        return false;
+      }
+    </script>
+  </body>
+</html>
