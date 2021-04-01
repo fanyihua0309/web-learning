@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>简易计算器</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=divice-width, initial-scale=1.0">
+    <style>
+      body{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        font-family: 微软雅黑;
+        color: rgb(75, 74, 74);
+      }
+      .general-style{
+          line-height: 40px;
+      }
+      .input-box{
+        height: 23px;
+        width: 200px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        background-color: rgb(245, 237, 237);
+      }
+      .count-result-part{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .button{
+        background-color: pink;
+        color: rgb(75, 74, 74);
+        height: 38px;
+        width: 85px;
+        border-radius: 999em;
+        border: 1.2px solid gray;
+        margin-top: 15px;
+        margin-right: 10px;
+        box-shadow: 0 8px 16px 0 rgba(228, 150, 150, 0.2), 0 6px 20px 0 rgba(146, 99, 99, 0.19);
+      }
+      #countResult{
+        height: 35px;
+        width: 180px;
+        border: 1px solid gray;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <div class="general-style">
+        <label>操作数1:</label><input type="number" class="input-box" id="number1"/>
+      </div>
+      <div class="general-style">
+        <label>操作数2:</label><input type="number" class="input-box" id="number2"/>
+      </div>
+      <div class="general-style">
+        <label>运算类型:</label>
+        <input type="radio" name="arithmetic-type" value="+">+
+        <input type="radio" name="arithmetic-type" value="-">-
+        <input type="radio" name="arithmetic-type" value="*">*
+        <input type="radio" name="arithmetic-type" value="/">/
+      </div>
+      <div class="count-result-part">
+        <div class="general-style">
+          <button type="text" class="button" onclick="getCountResult();">计算结果</button>
+        </div>
+        <div id="countResult" class="input-box"></div>
+      </div>
+    </div>
+
+    <script>
+      function getCountResult(){
+        let num1 = document.getElementById("number1").value;
+        let num2 = document.getElementById("number2").value;
+        let type;
+        let radio_tag = document.getElementsByName("arithmetic-type");
+        for(let i = 0; i < radio_tag.length; i++){
+          if(radio_tag[i].checked){
+            type = radio_tag[i].value;
+          }
+        }
+        num1 = Number(num1);
+        num2 = Number(num2);
+        let result;
+        if(type == '' || num1 == '' || num2 == ''){
+          return (document.getElementById("countResult").innerHTML = "待计算内容不完整");
+        }
+        switch(type){
+          case "+": result = num1 + num2; break;
+          case "-": result = num1 - num2; break;
+          case "*": result = num1 * num2; break;
+          case "/": result = num1 / num2; break;
+        }
+        return (document.getElementById("countResult").innerHTML = result);
+      }
+    </script>
+  </body>
+</html>
