@@ -56,7 +56,7 @@
   </head>
 
   <body>
-    <form>
+    <form onsubmit="return getCountResult();">
       <div class="general-style">
         <label>操作数1:</label><input type="number" class="input-box" id="number1" required="required"/>
       </div>
@@ -72,7 +72,7 @@
       </div>
       <div class="count-result-part">
         <div class="general-style">
-          <button type="submit" class="button" onclick="getCountResult();">计算结果</button>
+          <button type="submit" class="button">计算结果</button>
         </div>
         <div id="countResult" class="input-box"></div>
       </div>
@@ -101,7 +101,10 @@
           case "*": result = num1 * num2; break;
           case "/": result = num1 / num2; break;
         }
-        return (document.getElementById("countResult").innerHTML = result);
+        document.getElementById("number1").value = num1;
+        document.getElementById("number2").value = num2;
+        document.getElementById("countResult").innerHTML = result;
+        return false;
       }
     </script>
   </body>
