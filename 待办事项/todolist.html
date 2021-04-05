@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>待办事项</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=divice-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <style>
+            html{
+                height: 100%;
+                width: 100%;
+            }
+            body{
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: rgb(70, 72, 73);
+            }
+            .search-div{
+                margin-top: 30px;
+            }
+            .function-declaration{
+                margin-top: 50px;
+            }
+            .show-list-div{
+                margin-top: 30px;
+            }
+            .textarea{
+                width: 270px;
+            }
+            #search-text{
+                width: 270px;
+            }
+            .left-part{
+                width: 50%;
+                height: 100%;
+                margin-top: 40px;
+            }
+            .show-list-div{
+                width: 50%;
+                height: 100%;
+            }
+            #todo-list{
+                height: 380px;
+                width: 550px;
+                border: 1px solid gray;
+            }
+            #search-result{
+                height: 100px;
+                width: 300px;
+                border: 1px solid gray;
+            }
+            .button{
+                background-color: skyblue;
+                height: 25px;
+                width: 55px;
+                /* border-radius: 999em; */
+                /* border: 1.2px solid gray; */
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="left-part">
+            <form onsubmit="handleSubmit(); return false;">
+                <label for="todo-item"><strong>新增功能:</strong>请在此输入您的新增待办事项</label><br />
+                <textarea rows="5" name="todo-item" class="textarea"></textarea>
+                <button type="submit" class="button">提交</button>      
+            </form>
+
+            <div class="search-div">
+                <label><strong>查询功能:</strong>在输入框中输入待办事项关键字,点击查询按钮</label><br />
+                <input type="text" id="search-text">
+                <button type="text" class="button" onclick="handleSearch();">查询</button>
+                <div>
+                    <label><strong>查询结果</strong></label><br />
+                    <ul id="search-result"></ul>
+                </div>
+            </div>
+
+            <div class="function-declaration">
+                <label><strong>删除功能:</strong>鼠标移动到待删除待办事项,点击删除按钮</label><br />
+                <label><strong>编辑功能:</strong>鼠标移动到待编辑待办事项,点击编辑按钮,在输入框中进行编辑</label><br />
+            </div>
+        </div>
+
+        <div class="show-list-div">
+            <label><strong>待办事项列表</strong></label>
+            <ul id="todo-list"></ul>
+        </div>
+
+
+        <script>
+            //处理用户提交的表单
+            function handleSubmit(){
+                const form = document.querySelector("form");
+                const formData = new FormData(form);
+                const todoItem = formData.get("todo-item");
+               
+                renderTodoList(todoItem);
+                afterSubmit();
+            }
+
+            //渲染出用户输入的待办事项
+            function renderTodoList(todoItem){
+                const ul = document.querySelector("#todo-list");
+                const li = document.createElement("li");
+                // li.innerHTML = todoItem;
+
+                const text = document.createElement("p");    //新增标签p,显示li的文本内容,便于在编辑功能中重新赋值
+                text.innerHTML = todoItem;
+                text.className = "text";    //className便于获取所有同类名元素,便于查找
+                li.appendChild(text);
+
+                const buttonDelete = document.createElement("button");    //新增删除按钮
+                buttonDelete.innerHTML = "删除";
+                buttonDelete.style.backgroundColor = "skyblue";
+                buttonDelete.style.height = "25px";
+                buttonDelete.style.width = "55px";
+                buttonDelete.style.display = "none";
+                buttonDelete.id = "button-for-delete";
+                buttonDelete.onclick = function handleDelete(){   //处理用户点击删除按钮事件
+                    li.remove();
+                }
+
+                const buttonEdit = document.createElement("button");    //新增编辑按钮
+                buttonEdit.innerHTML = "编辑";
+                buttonEdit.style.backgroundColor = "skyblue";
+                buttonEdit.style.height = "25px";
+                buttonEdit.style.width = "55px";
+                buttonEdit.style.display = "none";
+                buttonEdit.id = "button-for-edit";
+                
+                let inputEdit = document.createElement("input");    //新增标签input,用于编辑功能用户输入编辑的内容
+                inputEdit.type = "text";
+                inputEdit.id = "input-edit-text";
+                inputEdit.value = todoItem;
+                inputEdit.style.height = "25px";
+                inputEdit.style.width = "200px";
+                inputEdit.style.display = "none";
+                buttonEdit.appendChild(inputEdit);
+
+                buttonEdit.onclick = function handleEdit(){   //处理用户点击编辑按钮事件
+                    inputEdit.style.display = "inline";       //点击编辑按钮后显示输入框
+                    let editText;
+                    inputEdit.onblur = function hideInputEdit(){    //失去焦点时表示用户输入编辑后的内容完毕
+                        inputEdit.style.display = "none";
+                        editText = inputEdit.value;
+
+                        let itemList = document.getElementsByClassName("text");
+                        for(let i = 0; i < itemList.length; i++){
+                            let item = itemList[i].innerHTML;
+                            let index = item.indexOf(todoItem);   //indexOf方法用于查找子串,返回索引,索引为-1表示不存在子串
+                            if(index !== -1){   //查找到待编辑的待办事项,进行更新内容
+                                itemList[i].innerHTML = editText;
+                            }
+                        }
+                    }
+                }
+
+                li.onmouseover = function displayButton(){  //鼠标移到当前待办事项,显示按钮
+                    buttonDelete.style.display = "inline";
+                    buttonEdit.style.display = "inline";
+                }
+                li.onmouseout = function hideButton(){      //鼠标移开当前待办事项,隐藏按钮
+                    buttonDelete.style.display = "none";
+                    buttonEdit.style.display = "none";
+                }
+
+                li.appendChild(buttonDelete);
+                li.appendChild(buttonEdit);
+
+                ul.appendChild(li);
+            }
+
+
+            //提交表单之后的操作
+            function afterSubmit(){
+                console.log(document.querySelector("textarea").value);
+                document.querySelector("textarea").value = "";
+                document.querySelector("textarea").focus();
+            }
+
+
+            //查询功能
+            function handleSearch(){
+                document.getElementById("search-result").innerHTML = "";    //先将原来的查询结果清空,否则可能出现既显示查询出的待办事项又显示不存在的提示信息的bug
+
+                const searchText = document.getElementById("search-text").value;    //用户输入的待查询文本
+                const myUl = document.getElementById("todo-list");  
+                const myLi = myUl.getElementsByTagName("li");
+                let isExit = 0;
+                let itemList = document.getElementsByClassName("text");
+                for(let i = 0; i < itemList.length; i++)
+                {
+                    let item = itemList[i].innerHTML;
+                    let index = item.indexOf(searchText);   //indexOf方法用于查找子串,返回索引,索引为-1表示不存在子串
+                    if(index !== -1){
+                        isExit = 1;
+                        let resultUl = document.getElementById("search-result");
+                        let resultLi = document.createElement("li");
+                        resultLi.innerText = item;
+                        resultUl.appendChild(resultLi);
+                    }
+                }
+                console.log(isExit);
+                if(isExit === 0)
+                    document.getElementById("search-result").innerHTML = "不存在此待办事项";
+            }
+        </script>
+    </body>
+</html>
