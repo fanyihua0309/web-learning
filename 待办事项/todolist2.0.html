@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>待办事项</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=divice-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <style>
+            html{
+                height: 100%;
+                width: 100%;
+            }
+            body{
+                height: 100%;
+                width: 100%;
+                line-height: 35px;
+                /* display: flex;
+                justify-content: center;
+                align-items: center;
+                color: rgb(70, 72, 73); */
+            }
+            .textarea{
+                width: 500px;
+                margin-top: 14px;
+            }
+            .search-div{
+                height: 29px;
+                width: 240px;
+                position: relative;
+                top: -160px;
+                left: 262px;
+            }
+            #search-text{
+                width: 240px;
+                height: 22px;
+            }
+            #my-todo-item{
+                font-size: 20px;
+            }
+            tabel td{
+                height: 10px;
+                width: 280px;
+                border: 0.5px solid rgb(161, 159, 159);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="left-part">
+            <!-- <form onsubmit="handleSubmit(); return false;"> -->
+                <label for="todo-item" id="my-todo-item"><strong>我的待办事项</strong></label><br />
+                <textarea rows="6" name="todo-item" id="item" class="textarea" onkeydown="enterToSubmit(event.keyCode);"></textarea>
+                <button type="submit" id="submit-button" class="button" hidden="true" onclick="handleSubmit();">提交</button>      
+            <!-- </form> -->
+
+            <div class="search-div">
+                <input type="text" id="search-text" onkeydown="enterToSearch(event.keyCode);" placeholder="搜索待办事项">
+                <button type="text" class="button" id="search-button" onclick="handleSearch();" hidden="true">查询</button>
+            </div>
+        </div>
+
+        <div class="show-list-div">
+            <label><strong>待办事项列表</strong></label>
+            <div>
+                <!-- 问题：对tabel设置border不起作用？对th设置样式不起作用？ -->
+                <tabel border="8" id="todo-list" cellspacing="0">   
+                    <th>待办事项</th>       
+                    <th>操作</th><br />  
+                </tabel>
+            </div>
+        </div>
+
+
+        <script>
+            function enterToSubmit(keyCode){     //按下回车键提交进行新增
+                if (keyCode === 13){  //回车键的键值为13
+                    document.getElementById("submit-button").click();   //问题：按回车提交后光标在第二行？
+                    let area = document.getElementsByName("todo-item"); 
+                }
+            }
+            function enterToSearch(keyCode){    //按下回车键提交进行查询
+                if (keyCode === 13){  //回车键的键值为13
+                    document.getElementById("search-button").click();
+                }
+            }
+
+
+            //处理用户提交的表单
+            function handleSubmit(){
+                //问题：若中间程序出错没有执行完本函数，也就无法return false导致表单提交后刷新，控制台报错也看不了了？
+                // const form = document.querySelector("form"); 
+                // const formData = new FormData(form);
+                // const todoItem = formData.get("todo-item");
+               
+                const todoItem = document.getElementById("item").value;
+
+                renderTodoList(todoItem);
+                afterSubmit();
+            }
+
+            //渲染出用户输入的待办事项
+            function renderTodoList(todoItem){
+                let table = document.querySelector("#todo-list");
+                let tr = document.createElement("tr");
+                let td = document.createElement("td");
+                td.innerHTML = todoItem;
+                td.className = "todo-list-left";
+                tr.appendChild(td);
+                table.appendChild(tr);
+
+
+                let tdButton = document.createElement("td");
+
+                const buttonEdit = document.createElement("button");    //新增编辑按钮
+                buttonEdit.innerHTML = "编辑";
+                buttonEdit.style.backgroundColor = "skyblue";
+                buttonEdit.style.height = "25px";
+                buttonEdit.style.width = "55px";
+                buttonEdit.id = "button-for-complete";
+
+                //尚未实现：启用编辑功能后，输入框是跟在原来的文本后面，而不是覆盖
+                let inputEdit = document.createElement("input");    //新增标签input,用于编辑功能用户输入编辑的内容
+                inputEdit.type = "text";
+                inputEdit.id = "input-edit-text";
+                inputEdit.value = todoItem;
+                inputEdit.style.height = "25px";
+                inputEdit.style.width = "200px";
+                inputEdit.style.display = "none";
+                tr.cells[0].appendChild(inputEdit);
+
+                const buttonSubmit = document.createElement("button");    //新增编辑按钮
+                buttonSubmit.innerHTML = "提交";
+                buttonSubmit.style.backgroundColor = "skyblue";
+                buttonSubmit.style.height = "25px";
+                buttonSubmit.style.width = "55px";
+                buttonSubmit.style.display = "none"
+                buttonSubmit.id = "button-for-submit";
+                tr.cells[0].appendChild(buttonSubmit);
+
+                buttonEdit.onclick = function handleEdit(){   //处理用户点击编辑按钮事件
+                    inputEdit.style.display = "inline";       //点击编辑按钮后显示输入框
+                    buttonSubmit.style.display = "inline";
+                    let editText;
+                    buttonSubmit.onclick = function hideInputEdit(){    //点击提交按钮表示用户输入编辑后的内容完毕
+                        inputEdit.style.display = "none";
+                        editText = inputEdit.value;
+                        console.log(editText);
+                        console.log(tr.cells[0]);
+                        tr.cells[0].innerHTML = editText;
+                    }
+                }
+                tdButton.appendChild(buttonEdit);
+
+
+                const buttonDelete = document.createElement("button");    //新增删除按钮
+                buttonDelete.innerHTML = "删除";
+                buttonDelete.style.backgroundColor = "skyblue";
+                buttonDelete.style.height = "25px";
+                buttonDelete.style.width = "55px";
+                buttonDelete.id = "button-for-delete";
+                buttonDelete.onclick = function handleDelete(){   //处理用户点击删除按钮事件
+                    tr.remove();
+                }
+                tdButton.appendChild(buttonDelete);
+
+                const buttonComplete = document.createElement("button");    //新增完成/未完成按钮
+                buttonComplete.innerHTML = "完成";
+                buttonComplete.style.backgroundColor = "skyblue";
+                buttonComplete.style.height = "25px";
+                buttonComplete.style.width = "60px";
+                buttonComplete.id = "button-for-complete";
+                buttonComplete.onclick = function handleComplete(){   //处理用户点击完成/未完成按钮事件
+                    if(buttonComplete.innerHTML === "完成"){
+                        tr.cells[0].style.textDecoration = "line-through";
+                        buttonComplete.innerHTML = "未完成"
+                    }
+                    else{
+                        tr.cells[0].style.textDecoration = "none";
+                        buttonComplete.innerHTML = "完成"
+                    }
+                }
+                tdButton.appendChild(buttonComplete);
+
+
+
+                tr.appendChild(tdButton);
+            }
+
+
+            //提交表单之后的操作
+            function afterSubmit(){
+                console.log(document.querySelector("textarea").value);
+                document.querySelector("textarea").value = "";
+                document.querySelector("textarea").focus();
+            }
+
+            //查询功能
+            function handleSearch(){
+                const searchText = document.getElementById("search-text").value;    //用户输入的待查询文本
+                const tabel = document.getElementById("todo-list");  
+                const tr = tabel.getElementsByTagName("tr");
+                if(searchText === ""){      //若用户输入的内容为空,则恢复初始的待办事项表格
+                    for(let i = 0; i < tr.length; i++){
+                    tr[i].style.display = "block";
+                    }
+                }
+                else{
+                    let isExit = 0;
+                    for(i = 0; i < tr.length; i++){
+                        let item = tr[i].cells[0].innerHTML;
+                        let index = item.indexOf(searchText);   //indexOf方法用于查找子串,返回索引,索引为-1表示不存在子串
+                        if(index === -1){
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
