@@ -4,6 +4,7 @@ window.onload = function() {
     var myUl = myTab.getElementsByTagName("ul")[0]; //一个节点
     var myLi = myUl.getElementsByTagName("li"); //数组
     var myDiv = myTab.getElementsByTagName("div"); //数组
+    // var myDiv = myTab.getElementsByClassName("input-field-container");
 
     for (var i = 0; i < myLi.length; i++) {
         myLi[i].index = i;
@@ -12,6 +13,10 @@ window.onload = function() {
                 myLi[j].className = "off";
                 myDiv[j].className = "hide";
             }
+            // for(var k = 0; k < 3; k++){
+            //     myDiv[k].className = "hide";
+            // }
+            console.log(myDiv.length);
             this.className = "on";
             myDiv[this.index].className = "show";
         }
