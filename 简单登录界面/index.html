@@ -1,102 +1,47 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
-    <head>
-        <title></title>
-        <style>
-            body{
-                height:95vh;
-                width:100%;
-                display:flex;
-                justify-content: center;
-                align-items: center;
-                align-content: center;
-                text-align: right;
-            }
-            #username-label{
-                font-size: 16px;
-                font-family: 微软雅黑;
-                color:black;
-            }
-            #password-label{
-                font-size: 16px;
-                font-family: 微软雅黑;
-                color: black;
-                line-height: 40px;
-            }
-            #login-button{
-                width: 200px;
-                height: 25px;
-                border: 1px solid grey;
-                background-color: white;
-                font-size: 16px;
-                font-family: 微软雅黑;
-                text-align: center;
-                margin-top: 5px;
-            }    
-        </style>
-    </head>
+  <head>
+    <title></title>
+    <style>
+      body {
+        height: 95vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
 
-    <body>
-        <form>
-            <div>
-                <label id="username-label">用户名:<input /></label>
-            </div>
-            <div>
-                <label id="password-label"> 密码:<input /></label>
-            </div>
-            <button id="login-button">登录</button>  
-        </form>
-    </body>
-=======
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <style>
-            body{
-                height:95vh;
-                width:100%;
-                display:flex;
-                justify-content: center;
-                align-items: center;
-                align-content: center;
-                text-align: right;
-            }
-            #username-label{
-                font-size: 16px;
-                font-family: 微软雅黑;
-                color:black;
-            }
-            #password-label{
-                font-size: 16px;
-                font-family: 微软雅黑;
-                color: black;
-                line-height: 40px;
-            }
-            #login-button{
-                width: 200px;
-                height: 25px;
-                border: 1px solid grey;
-                background-color: white;
-                font-size: 16px;
-                font-family: 微软雅黑;
-                text-align: center;
-                margin-top: 5px;
-            }    
-        </style>
-    </head>
+      form {
+        font-size: 16px;
+        font-family: 微软雅黑;
+      }
+      #login-button {
+        width: 200px;
+        height: 25px;
+        border: 1px solid grey;
+        background-color: white;
+        margin-top: 5px;
+      }
+      .form-line {
+        text-align: right;
+      }
+      .form-line-label {
+        color: black;
+        line-height: 40px;
+      }
+    </style>
+  </head>
 
-    <body>
-        <form>
-            <div>
-                <label id="username-label">用户名:<input /></label>
-            </div>
-            <div>
-                <label id="password-label"> 密码:<input /></label>
-            </div>
-            <button id="login-button">登录</button>  
-        </form>
-    </body>
->>>>>>> fce156852c15536bd6bf270124fb3fa9e16e1096
+  <body>
+    <form>
+      <div class="form-line">
+        <label class="form-line-label">用户名:<input /></label>
+      </div>
+      <div class="form-line">
+        <label class="form-line-label"> 密码:<input /></label>
+      </div>
+      <button id="login-button">登录</button>
+    </form>
+  </body>
 </html>
